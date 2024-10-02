@@ -1,0 +1,63 @@
+﻿@model List<Proyecto_RRHH__Datos_.Models.Puestos>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_StartLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title mt-0"> Vacantes disponibles</h4>
+                        <p class="card-category">Lista de vacantes visibles para los candidatos</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="text-success">
+                                <th>Nombre</th>
+                                <th>Nivel de riesgo</th>
+                                <th>Salario</th>
+                                <th>Departamento</th>
+                                <th>Estado</th>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Descripcion
+                                            </td>
+                                            <td>
+                                                @item.NivelDeRiesgo
+                                            </td>
+                                            <td>
+                                                @item.Salario.ToString("C2")
+                                            </td>
+                                            <td>
+                                                @item.DepartamentoNavigation.Descripcion
+                                            </td>
+                                            <td>
+                                                @item.EstadoNavigation.Descripcion
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <a rel="tooltip" title="Editar" asp-controller="Vacantes" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <a class="btn btn-success" asp-action="Create" asp-controller="Vacantes"><i class="material-icons">add</i> Nueva vacante</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+﻿@model Proyecto_RRHH__Datos_.Models.Candidatos
+@{
+    Layout = "~/Views/Shared/_StartLayout.cshtml";
+    List<Proyecto_RRHH__Datos_.Models.IdiomasCandidatos> idiomas = ViewBag.idiomas;
+    List<Proyecto_RRHH__Datos_.Models.CandidatoCompetencias> competencias = ViewBag.competencias;
+    List<Proyecto_RRHH__Datos_.Models.Capacitaciones> capacitaciones = ViewBag.capacitaciones;
+    List<Proyecto_RRHH__Datos_.Models.ExperienciaLaboral> experiencias = ViewBag.experiencias;
+}
+
+<div class="col-md-12">
+    <div class="card card-profile">
+        <div class="card-avatar">
+            <a href="javascript:;">
+                <img class="img" src="~/images/Logo Proyecto RRHH.png" />
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="elemento"><p class="titulo">Candidato:</p><p class="Detalle">@Model.Nombre</p></div>
+            <div class="Conjunto">
+                <div class="elemento"><p class="titulo">Cedula:</p><p class="Detalle">@Model.Cedula</p></div>
+                <div class="elemento"><p class="titulo">Aspiracion al puesto de:</p><p class="Detalle">@Model.AspiracionPuestoNavigation.Descripcion</p></div>
+                <div class="elemento"><p class="titulo">Salario del puesto:</p><p class="Detalle">@Model.AspiracionPuestoNavigation.Salario.ToString("C2")</p></div>
+                <div class="elemento"><p class="titulo">Nivel de riesgo:</p><p class="Detalle">@Model.AspiracionPuestoNavigation.NivelDeRiesgo</p></div>
+                <div class="elemento"><p class="titulo">Estado:</p><p class="Detalle">@Model.EstadoNavigation.Descripcion</p></div>
+            </div>
+            <div class="group-buttons">
+                <a asp-controller="Candidatos" asp-action="Categorizar" asp-route-id="@Model.Id" asp-route-estado="Descartar" class="btn btn-danger"><i class="material-icons">cancel</i>Descartar</a>
+                <a asp-controller="Candidatos" asp-action="Categorizar" asp-route-id="@Model.Id" asp-route-estado="Futuro" class="btn btn-info"><i class="material-icons">save</i>Uso futuro</a>
+                @if (Model.Estado == 4)
+                {
+                    <a asp-controller="Candidatos" asp-action="Categorizar" asp-route-id="@Model.Id" asp-route-estado="Siguiente" class="btn btn-success"> <i class="material-icons">arrow_forward</i>Formalizar a empleado</a>
+                }
+                else
+                {
+                    <a asp-controller="Candidatos" asp-action="Categorizar" asp-route-id="@Model.Id" asp-route-estado="Siguiente" class="btn btn-success"> <i class="material-icons">arrow_forward</i>Pasar a siguiente estado</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Competencias</h4>
+                <p class="card-category">Competencias del candidato</p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-warning">
+                    <th>Nombre</th>
+                    <th>Nivel</th>
+                    <th>Comentarios</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var items in competencias)
+                        {
+                            <tr>
+                                <td>@items.CompetenciaNavigation.Descripcion</td>
+                                <td>@items.CompetenciaNavigation.NivelNavigation.Descripcion</td>
+                                <td>@items.CompetenciaNavigation.Comentario</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-danger">
+                <h4 class="card-title">Idiomas</h4>
+                <p class="card-category">Idiomas que domina el candidato</p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-warning">
+                    <th>Idioma</th>
+                    <th>Nivel</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in idiomas)
+                        {
+                            <tr>
+                                <td>@item.IdiomasNavigation.Descripcion</td>
+                                <td>@item.IdiomasNavigation.NivelNavigation.Descripcion</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Capacitaciones</h4>
+                <p class="card-category">Capacitaciones del candidato</p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-warning">
+                    <th>Capacitacion</th>
+                    <th>Fecha de inicio</th>
+                    <th>Fecha final</th>
+                    <th>Nivel</th>
+                    <th>Institucion</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var items in capacitaciones)
+                        {
+                            <tr>
+                                <td>@items.Descripcion</td>
+                                <td>@items.FechaInicio.ToString("dd/mm/yyyy")</td>
+                                <td>@items.FechaFinal.ToString("dd/mm/yyyy")</td>
+                                <td>@items.NivelNavigation.Descripcion</td>
+                                <td>@items.Institucion</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Experiencia laboral</h4>
+                <p class="card-category">Experiencias laborales del candidato</p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-warning">
+                    <th>Empresa</th>
+                    <th>Puesto</th>
+                    <th>Salario</th>
+                    <th>Fecha inicial</th>
+                    <th>Fecha final</th>
+                    <th>Funcion</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in experiencias)
+                        {
+                        <tr>
+                            <td>@item.Empresa</td>
+                            <td>@item.Puesto</td>
+                            <td>@item.Salario.ToString("C2")</td>
+                            <td>@item.FechaInicio</td>
+                            <td>@item.FechaFinal</td>
+                            <td>@item.Descripcion</td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 

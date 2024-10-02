@@ -1,0 +1,58 @@
+﻿@model Proyecto_RRHH__Datos_.Models.Empleados
+@{
+    Layout = "~/Views/Shared/_StartLayout.cshtml";
+
+}
+<!-- End Navbar -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Empleado</h4>
+                    </div>
+                    <div class="card-body p-5">
+                        <form asp-controller="Empleados" asp-action="Edit" method="post">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Cedula</label>
+                                        <input type="text" class="form-control" asp-for="@Model.Cedula">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Nombre</label>
+                                        <input type="text" class="form-control" asp-for="@Model.Nombre">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Fecha de ingreso</label>
+                                        <input type="text"  class="form-control" asp-for="@Model.FechaIngreso">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Departamento</label>
+                                        <input type="text"  class="form-control" asp-for="@Model.PuestoNavigation.Descripcion">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Estado</label>
+                                        <input type="text" class="form-control" asp-for="@Model.EstadoNavigation.Descripcion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

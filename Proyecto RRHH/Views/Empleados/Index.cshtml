@@ -1,0 +1,93 @@
+﻿@model List<Proyecto_RRHH__Datos_.Models.Empleados>
+@{
+    Layout = "~/Views/Shared/_StartLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title mt-0">Candidatos</h4>
+                        <p class="card-category">Lista de candidatos</p>
+                    </div>
+                    <form class="navbar-form" asp-action="Export" asp-controller="Empleados" method="post">
+                        <div class="Filters">
+                            <div class="form-group col-md-4">
+                                <label class="bmd-label-floating">Fecha inicial</label>
+                                <input type="date" name="fechainicial" id="fechainicial" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="bmd-label-floating">Fecha final</label>
+                                <input type="date" name="fechafinal" id="fechafinal" />
+                            </div>
+                            <input type="submit" class="btn btn-success" name="ButtonSubmit" id="ButtonSubmit" value="Exportar" />
+                        </div>
+                    </form>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="text-success">
+                                <th>Codigo Empleado</th>
+                                <th>Cedula</th>
+                                <th>Nombre</th>
+                                <th>Fecha de ingreso</th>
+                                <th>Puesto</th>
+                                <th>Estado</th>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.CodigoEmpleador
+                                            </td>
+                                            <td>
+                                                @item.Cedula
+                                            </td>
+                                            <td>
+                                                @item.Nombre
+                                            </td>
+                                            <td>
+                                                @item.FechaIngreso
+                                            </td>
+                                            <td>
+                                                @item.PuestoNavigation.Descripcion
+                                            </td>
+                                            <td>
+                                                @item.EstadoNavigation.Descripcion
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <a rel="tooltip" title="Editar" asp-controller="Empleados" asp-action="Details" asp-route-id="@item.CodigoEmpleador" class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">visibility</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <form asp-controller="Empleados" asp-action="Export" method="post">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    document.getElementById("ButtonSubmit").addEventListener("click", function (event) {
+        var from = $("#fechainicial").val();
+        var to = $("#fechafinal").val();
+
+
+        if (Date.parse(from) > Date.parse(to)) {
+            alert("Rango de fecha invalido");
+            event.preventDefault();
+        }
+    })
+</script>

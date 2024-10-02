@@ -1,0 +1,73 @@
+﻿@model Proyecto_RRHH__Datos_.Models.Puestos
+@{
+    Layout = "~/Views/Shared/_StartLayout.cshtml";
+    Dictionary<int, string> sl = ViewBag.departamentosd;
+    Dictionary<int, string> sle = ViewBag.estadosd;
+}
+<!-- End Navbar -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Vacantes @Model.Id</h4>
+                        <p class="card-category">En el formulario puede actualizar la informacion de   la vacante</p>
+                    </div>
+                    <div class="card-body p-5">
+                        <form asp-controller="Vacantes" asp-action="Edit" method="post">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @Html.HiddenFor(x => x.Id)
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Nombre</label>
+                                        <input type="text" class="form-control" asp-for="@Model.Descripcion">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Nivel de riesgos</label>
+                                        <input type="text" class="form-control" asp-for="@Model.NivelDeRiesgo">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Salario</label>
+                                        <input type="number" min="1" step="any" class="form-control" asp-for="@Model.Salario">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Departamento</label>
+                                        <select class="form-control" asp-for="@Model.Departamento">
+                                            @foreach (var item in sl)
+                                            {
+                                            <option value="@item.Key">@item.Value</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Estados</label>
+                                        <select class="form-control" asp-for="@Model.Estado" 
+                                                >
+                                            @foreach (var item in sle)
+                                            {
+                                                <option value="@item.Key">@item.Value</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary pull-right">Actualizar vacante</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
