@@ -39,7 +39,7 @@ namespace Proyecto_RRHH__Datos_.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-BP0NJS2\\SQLEXPRESS;Database=Proyect_RRHH;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-BP17\\SQLEXPRESS;Database=Proyect_RRHH;Trusted_Connection=True;");
             }
         }
 
